@@ -13,38 +13,107 @@ const categories = [
   'Event Video',
 ];
 
-const projects: any = [
+const projects = [
   {
-    title: 'Project 1',
+    title: 'Hustlang Robber - Say Wazzup (Official MV)',
     category: 'Music Video',
-    description: 'A cinematic music video exploring urban culture',
-    thumbnail: '/path-to-thumbnail-1.jpg' // Replace with actual path
+    description: 'Music video chính thức của Hustlang Robber với tựa đề "Say Wazzup".',
+    thumbnail: '/path-to-thumbnail-1.jpg',
+    url: 'https://www.youtube.com/watch?v=22UvDL238i0'
   },
   {
-    title: 'Project 2',
-    category: 'TVC',
-    description: 'Commercial spot for leading lifestyle brand',
-    thumbnail: '/path-to-thumbnail-2.jpg'
+    title: 'Dưới Ánh Đèn Sân Khấu | Thu Minh Cover',
+    category: 'Music Video',
+    description: 'Bản cover "Dưới Ánh Đèn Sân Khấu" do ca sĩ Thu Minh thể hiện.',
+    thumbnail: '/path-to-thumbnail-2.jpg',
+    url: 'https://www.youtube.com/watch?v=sm3XlDdo5hQ'
   },
   {
-    title: 'Project 3',
+    title: 'VAN LANG UNIVERSITY: WHERE IMPACT MATTERS',
     category: 'Branding Film',
-    description: 'Corporate identity film showcasing company values',
-    thumbnail: '/path-to-thumbnail-3.jpg'
+    description: 'Phim thương hiệu giới thiệu về Đại học Văn Lang và những giá trị cốt lõi.',
+    thumbnail: '/path-to-thumbnail-3.jpg',
+    url: 'https://www.youtube.com/watch?v=DJhS895ambk'
   },
   {
-    title: 'Project 4',
+    title: 'BÁO CÁO TÀI CHÍNH QUÝ 3/2023',
+    category: 'Talkshow',
+    description: 'Chương trình phân tích tài chính quý 3 năm 2023.',
+    thumbnail: '/path-to-thumbnail-4.jpg',
+    url: 'https://www.youtube.com/watch?v=Vw1ctGttkIs'
+  },
+  {
+    title: 'Hành trình về miền Tây - Văn hóa và ẩm thực',
     category: 'Documentary Film',
-    description: 'Cultural documentary exploring Vietnamese traditions',
-    thumbnail: '/path-to-thumbnail-4.jpg'
+    description: 'Phim tài liệu về văn hóa và ẩm thực miền Tây Việt Nam.',
+    thumbnail: '/path-to-thumbnail-5.jpg',
+    url: 'https://www.youtube.com/watch?v=NHO4kkFYOsY'
   },
   {
-    title: 'Project 5',
+    title: 'Sự kiện Tech Expo 2024',
     category: 'Event Video',
-    description: 'High-profile tech conference coverage',
-    thumbnail: '/path-to-thumbnail-5.jpg'
+    description: 'Video tổng hợp sự kiện Tech Expo 2024 với các công nghệ mới nhất.',
+    thumbnail: '/path-to-thumbnail-6.jpg',
+    url: 'https://www.youtube.com/watch?v=0GU-OLONGb0'
   },
+  {
+    title: 'TVC Quảng cáo sản phẩm chăm sóc da',
+    category: 'TVC',
+    description: 'Quảng cáo truyền hình về sản phẩm chăm sóc da cao cấp.',
+    thumbnail: '/path-to-thumbnail-7.jpg',
+    url: 'https://www.youtube.com/watch?v=JSr-5wsyYJg'
+  },
+  {
+    title: 'Phóng sự: Nghề làm nước mắm truyền thống',
+    category: 'Documentary Film',
+    description: 'Phóng sự về làng nghề làm nước mắm truyền thống tại Phan Thiết.',
+    thumbnail: '/path-to-thumbnail-8.jpg',
+    url: 'https://www.youtube.com/watch?v=kSrCxE_m660'
+  },
+  {
+    title: 'Tech Talk: Xu hướng AI năm 2025',
+    category: 'Talkshow',
+    description: 'Buổi thảo luận về xu hướng trí tuệ nhân tạo trong năm 2025.',
+    thumbnail: '/path-to-thumbnail-9.jpg',
+    url: 'https://www.youtube.com/watch?v=OtrOrQcfq8o'
+  },
+  {
+    title: 'Sự kiện ra mắt sản phẩm mới của VinFast',
+    category: 'Event Video',
+    description: 'Video tổng hợp sự kiện ra mắt mẫu xe điện mới của VinFast.',
+    thumbnail: '/path-to-thumbnail-10.jpg',
+    url: 'https://www.youtube.com/watch?v=t41UzZgJDY8'
+  },
+  {
+    title: 'Video giới thiệu thương hiệu Highland Coffee',
+    category: 'Branding Film',
+    description: 'Phim giới thiệu thương hiệu và hành trình phát triển của Highland Coffee.',
+    thumbnail: '/path-to-thumbnail-11.jpg',
+    url: 'https://www.youtube.com/watch?v=rCIWjkFuOiQ'
+  },
+  {
+    title: 'MV Nhạc trẻ mới nhất 2024',
+    category: 'Music Video',
+    description: 'Music video mới nhất của nghệ sĩ nổi tiếng năm 2024.',
+    thumbnail: '/path-to-thumbnail-12.jpg',
+    url: 'https://www.youtube.com/watch?v=zz_cHYRp1fM'
+  },
+  {
+    title: 'Video quảng cáo nước giải khát mới',
+    category: 'TVC',
+    description: 'TVC quảng cáo sản phẩm nước giải khát mới trên thị trường.',
+    thumbnail: '/path-to-thumbnail-13.jpg',
+    url: 'https://www.youtube.com/watch?v=EWXQ9v4t4mE'
+  },
+  {
+    title: 'Phim tài liệu: Di sản văn hóa Huế',
+    category: 'Documentary Film',
+    description: 'Bộ phim tài liệu về những di sản văn hóa lâu đời tại Huế.',
+    thumbnail: '/path-to-thumbnail-14.jpg',
+    url: 'https://www.youtube.com/watch?v=VJqXo33RFYk'
+  }
 ];
+
 
 export default function Work() {
   const [selectedCategory, setSelectedCategory] = useState('All');
