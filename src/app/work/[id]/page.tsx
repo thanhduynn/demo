@@ -18,7 +18,13 @@ const getProjectById = (id:any) => {
     // ... add all other crew members from the image
   };
 };
-
+export async function generateStaticParams() {
+  return [
+    { id: '1' },
+    { id: '2' },
+    { id: '3' }
+  ];
+}
 export default function ProjectDetail({ params }:any) {
   const router = useRouter();
   const project = getProjectById(params.id);
