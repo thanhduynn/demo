@@ -8,7 +8,7 @@ export default function About() {
       {/* Hero Section */}
       <div className="relative w-full h-[80vh] flex items-center justify-center">
         <Image
-          src="/images/hero-background.jpg"
+          src="/images/branding/2-20231024053531-mda61.png"
           alt="Vantage Hero"
           layout="fill"
           objectFit="cover"
@@ -32,16 +32,13 @@ export default function About() {
           transition={{ duration: 1 }}
           className="text-lg md:text-xl font-light leading-relaxed"
         >
-          We are a team of passionate filmmakers and creative visionaries, dedicated
-          to crafting compelling narratives that captivate audiences. Our expertise
-          lies in blending cinematic artistry with innovative storytelling techniques
-          to bring ideas to life.
+          BROS CINE is an video production company with offices in the Ho Chi Minh and equipment rental in Da Nang . With lots of ambition about TVC, documentary filming, music video. Having a love with every simple thing in this world. Always be professional & energetic at work.
         </motion.p>
       </div>
 
       {/* Gallery Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 py-10 max-w-6xl mx-auto">
-        {["/images/gallery1.jpg", "/images/gallery2.jpg", "/images/gallery3.jpg"].map((src, index) => (
+        {["/images/branding/4-20231112070119-3tigy.png", "/images/branding/5-20231112070119-qulxm.png", "/images/branding/6-20231112070119-gmi7t.png"].map((src, index) => (
           <motion.div
             key={index}
             initial={{ opacity: 0, scale: 0.9 }}

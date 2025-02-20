@@ -8,16 +8,16 @@ export default function ContactPage() {
   return (
     <div className="relative w-full min-h-screen bg-black text-white">
       {/* Hero Section */}
-      <div className="w-full h-[60vh] flex flex-col items-center justify-center bg-gray-900">
+      {/* <div className="w-full h-[60vh] flex flex-col items-center justify-center bg-gray-900">
         <h1 className="text-5xl font-bold">Contact Us</h1>
         <p className="text-lg text-gray-400 mt-4">Get in touch with us for your next project.</p>
       </div>
-      
+       */}
       {/* Contact Info */}
       
       
       {/* Contact Form */}
-      <div className="container mx-auto px-6 pb-16 max-w-lg text-center">
+      <div className="w-full h-[100vh] flex flex-col items-center justify-center bg-black">
         <h2 className="text-3xl font-semibold">Send Us a Message</h2>
         <form className="mt-6">
           <input

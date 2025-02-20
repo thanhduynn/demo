@@ -25,7 +25,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-screen">
         <Image
-          src="/images/vietnam-hero.jpg"
+          src="/images/branding/3-20231024053531-97qf7.png"
           alt="Vietnam Production Service"
           layout="fill"
           objectFit="cover"
@@ -42,7 +42,7 @@ export default function Home() {
             className={`${poppins.className} text-4xl md:text-6xl lg:text-7xl font-bold text-center max-w-5xl leading-tight`}
           >
             Crafting Visual Stories in
-            <span className="text-stroke text-transparent"> Vietnam</span>
+            <span className="text-red-500"> Vietnam</span>
           </motion.h1>
 
           <motion.p
@@ -54,7 +54,7 @@ export default function Home() {
             World-class production services bringing your cinematic vision to life
           </motion.p>
 
-          <motion.button
+          {/* <motion.button
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
@@ -62,7 +62,7 @@ export default function Home() {
           >
             <Play size={20} />
             Watch Showreel
-          </motion.button>
+          </motion.button> */}
 
           <motion.button
             animate={{ y: [0, 10, 0] }}
@@ -83,10 +83,10 @@ export default function Home() {
           viewport={{ once: true }}
           className="mb-2 text-center"
         >
-          <h2 className={`${poppins.className} text-3xl md:text-4xl font-bold`}>
-            Trusted by Global Brands
+          <h2 className={`${poppins.className} text-3xl md:text-4xl font-bold`} >
+          Some of <span className="text-background"> OURS HIGHLIGHT</span>
           </h2>
-          <div className="h-1 w-20 bg-white mx-auto" />
+          <div className="h-1 w-20 bg-white mx-auto mt-2" />
         </motion.div>
         <Slideshow />
         <motion.button
