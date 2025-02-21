@@ -50,11 +50,6 @@ export default function About() {
           </motion.div>
         ))}
       </div>
-
-      {/* Footer */}
-      <div className="text-center py-10 text-gray-400">
-        <p>© 2024 Vantage Pictures. All Rights Reserved.</p>
-      </div>
     </main>
   );
 }

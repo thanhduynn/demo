@@ -24,7 +24,7 @@ export default function ProjectDetail({ params }:any) {
   const project = getProjectById(params.id);
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className=" bg-black text-white mt-[20vh]">
       <div className="container mx-auto px-4 py-16">
         <motion.button
           initial={{ opacity: 0, x: -20 }}
@@ -43,7 +43,14 @@ export default function ProjectDetail({ params }:any) {
             animate={{ opacity: 1, y: 0 }}
             className="aspect-video bg-gray-800 rounded-lg overflow-hidden"
           >
-            {/* Add video player or main image here */}
+            <iframe
+              src="https://player.vimeo.com/video/1039746267"
+              width="100%"
+              height="100%"
+              frameBorder="0"
+              allowFullScreen={false}
+              
+            />
           </motion.div>
 
           {/* Project Details */}
