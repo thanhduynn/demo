@@ -15,9 +15,9 @@ import Footer from '~/components/Footer';
 // });
 
 export const metadata: Metadata = {
-  title: 'VieMind - Chatbot',
+  title: 'BroCine - Production House & Rental House',
   description:
-    'AI chatbot chốt đơn tự động, tăng 50% tỷ lệ mua hàng khi tích hợp vào Fanpage, nhất là chốt sales khi chạy quảng cáo tin nhắn trên Facebook',
+    'BROS CINE is an video production company with offices in the Ho Chi Minh and equipment rental in Da Nang . With lots of ambition about TVC, documentary filming, music video. Having a love with every simple thing in this world. Always be professional & energetic at work.',
 };
 
 export default function RootLayout({
@@ -27,6 +27,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
+      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"></link>
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"></link>
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"></link>
+      <link rel="manifest" href="/site.webmanifest"></link>
       <body
         className={`antialiased`}
       >
