@@ -4,7 +4,10 @@ import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { Play, ChevronDown } from 'lucide-react';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { database } from '../../firebase';
+import { FIREBASE_BROSCINE, FIREBASE_HOME } from '~/constants/firebase';
 
 const Slideshow = dynamic(() => import('~/components/SlideShow/SlideShow'));
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '700', '900'] });
@@ -16,16 +19,39 @@ export default function Home() {
   const brandsRef = useRef(null);
   const contactRef = useRef(null);
 
+  const [title, setTitle] = useState("");
+  const [subtitle, setSubtitle] = useState("");
+  const [imageUrl, setImageUrl] = useState("/images/branding/3-20231024053531-97qf7.png");
+
   const scrollToSection = (ref: any) => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const fetchData = async () => {
+    const heroRef = doc(database, FIREBASE_BROSCINE, FIREBASE_HOME);
+    const heroSnap = await getDoc(heroRef);
+
+    if (heroSnap.exists()) {
+      const data = heroSnap.data()['heroSection'];
+      setTitle(data.title);
+      setSubtitle(data.subtitle);
+      setImageUrl(data.imageUrl);
+    } else {
+      alert("CANNOT FIND ANY DATA!")
+      console.log("NOTHING");
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [])
 
   return (
     <main className="min-h-screen bg-foreground text-white">
       {/* Hero Section */}
       <section className="relative h-screen">
         <Image
-          src="/images/branding/3-20231024053531-97qf7.png"
+          src={imageUrl}
           alt="Vietnam Production Service"
           layout="fill"
           objectFit="cover"
@@ -41,8 +67,8 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             className={`${poppins.className} text-4xl md:text-6xl lg:text-7xl font-bold text-center max-w-5xl leading-tight`}
           >
-            Crafting Visual Stories in
-            <span className="text-red-500"> Vietnam</span>
+            {title}
+            {/* <span className="text-red-500"> Vietnam</span> */}
           </motion.h1>
 
           <motion.p
@@ -51,7 +77,7 @@ export default function Home() {
             transition={{ delay: 0.2 }}
             className="mt-6 text-lg md:text-xl text-center max-w-2xl text-gray-300"
           >
-            World-class production services bringing your cinematic vision to life
+            {subtitle}
           </motion.p>
 
           {/* <motion.button
