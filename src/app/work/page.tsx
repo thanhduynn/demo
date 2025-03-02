@@ -5,6 +5,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Eye, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { AutoPlayer } from '~/components/AutoPlayer/AutoPlayer';
+import { collection, getDocs } from 'firebase/firestore';
+import { database } from '../../../firebase';
+import { FIREBASE_BROSCINE, FIREBASE_CATEGORIES, FIREBASE_PROJECTS, FIREBASE_WORK } from '~/constants/firebase';
+import { useWorkStore } from '~/stores/work.store';
+import Project from '~/types/project.type';
 
 const categories = [
   'Music Video',
@@ -157,31 +162,54 @@ function VideoModal({ isOpen, onClose, project }: any) {
 }
 
 export default function Work() {
-  const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [mounted, setMounted] = useState(false);
   const [hoveredProject, setHoveredProject] = useState(null);
+  const router = useRouter();
+
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const { projects, categories, setWorkStore } = useWorkStore();
+
+  const fetchData = async () => {
+    const projectRef = collection(database, FIREBASE_BROSCINE, FIREBASE_WORK, FIREBASE_PROJECTS);
+    const categoryRef = collection(database, FIREBASE_BROSCINE, FIREBASE_WORK, FIREBASE_CATEGORIES);
+
+    const [projectSnap, categorySnap] = await Promise.all([
+      getDocs(projectRef),
+      getDocs(categoryRef),
+    ]);
+
+    const projectData = projectSnap.docs.map((project) => ({
+      id: project.id,
+      ...project.data(),
+    })) as Project[];
+    const categoryData = categorySnap.docs.map(doc => doc.data()) as {tagName: string}[];
+    
+    setWorkStore('categories', categoryData);
+    setWorkStore('projects', projectData);
+  };
+
+  const handleDetailClick = (projectId:any) => {
+    router.push(`/work/${projectId}`);
+  };
+
   useEffect(() => {
     setMounted(true);
+    fetchData();
   }, []);
 
   const filteredProjects =
     selectedCategory === 'All'
       ? projects
-      : projects.filter((project: any) => project.category === selectedCategory);
+      : projects.filter((project:Project) => project.type === selectedCategory);
 
   if (!mounted) return null;
 
   const handlePlayClick = (project: any) => {
     setSelectedProject(project);
     setIsModalOpen(true);
-  };
-
-  const handleDetailClick = (projectId: any) => {
-    router.push(`/work/${projectId}`);
   };
 
   return (
@@ -223,14 +251,14 @@ export default function Work() {
           </button>
           {categories.map((category) => (
             <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`px-6 py-3 rounded-full transition-all duration-300 ${selectedCategory === category
-                ? 'bg-white text-black scale-105'
-                : 'bg-gray-900 hover:bg-gray-800'
+              key={category.tagName}
+              onClick={() => setSelectedCategory(category.tagName)}
+              className={`px-6 py-3 rounded-full transition-all duration-300 ${selectedCategory === category.tagName
+                  ? 'bg-white text-black scale-105'
+                  : 'bg-gray-900 hover:bg-gray-800'
                 }`}
             >
-              {category}
+              {category.tagName}
             </button>
           ))}
         </motion.div>
@@ -283,9 +311,8 @@ export default function Work() {
                           <Play size={16} />
                           Play
                         </button>
-                        <button
+                        <button className="flex items-center gap-2 bg-black/50 text-white px-4 py-2 rounded-full hover:bg-black/70 transition-colors"
                           onClick={() => handleDetailClick(project.id)}
-                          className="flex items-center gap-2 bg-black/50 text-white px-4 py-2 rounded-full hover:bg-black/70 transition-colors"
                         >
                           <Eye size={16} />
                           Details
@@ -297,7 +324,7 @@ export default function Work() {
 
                 {/* Category Tag */}
                 <div className="absolute top-4 left-4 bg-black/70 text-white text-sm px-3 py-1 rounded-full">
-                  {project.category}
+                  {project.type}
                 </div>
               </motion.div>
             ))}
