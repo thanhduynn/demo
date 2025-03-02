@@ -7,22 +7,11 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-const slideshowData = [
-  {
-    backgroundImage: "/images/banyan-tree-more-to-discovery.webp",
-  },
-  {
-    backgroundImage: "/images/realme-13-5g-unleash-gaming-potential.webp",
-  },
-  {
-    backgroundImage: "/images/oneplus-12-chasing-luna.webp",
-  },
-  {
-    backgroundImage: "/images/bitget-trade-smarter-the-mandatory.webp",
-  },
-];
+import useHomeStore from "~/stores/home.store";
 
-export default function Slideshow() {
+export default function Slideshow() {  
+  const slides = useHomeStore((state) => state.slides);
+  
   return (
     <div className="w-full flex justify-center items-center px-4 h-[80vh] bg-black">
       <Swiper
@@ -48,11 +37,11 @@ export default function Slideshow() {
         }}
         className="w-full max-w-[1200px]"
       >
-        {slideshowData.map((slide, index) => (
+        {slides.map((slide, index) => (
           <SwiperSlide key={index} className="flex justify-center">
             <div
               className="w-[90vw] sm:w-[350px] md:w-[400px] lg:w-[450px] h-[250px] md:h-[300px] bg-cover bg-center rounded-lg shadow-lg"
-              style={{ backgroundImage: `url(${slide.backgroundImage})` }}
+              style={{ backgroundImage: `url(${slide.imageUrl})` }}
             ></div>
             {/* <iframe width="450" height="350" src="https://www.youtube.com/embed/OtrOrQcfq8o?autoplay=1&mute=1&loop=1&controls=0"  frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe> */}
           </SwiperSlide>

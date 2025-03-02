@@ -3,11 +3,14 @@ import { Poppins } from 'next/font/google';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
-import { Play, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { database } from '../../firebase';
-import { FIREBASE_BROSCINE, FIREBASE_HOME } from '~/constants/firebase';
+import { FIREBASE_BRANDS, FIREBASE_BROSCINE, FIREBASE_HIGHLIGHTS, FIREBASE_HOME } from '~/constants/firebase';
+import Slide from '~/types/slide.type';
+import useHomeStore from '~/stores/home.store';
+import Brand from '~/types/brand.type';
 
 const Slideshow = dynamic(() => import('~/components/SlideShow/SlideShow'));
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '700', '900'] });
@@ -23,28 +26,47 @@ export default function Home() {
   const [subtitle, setSubtitle] = useState("");
   const [imageUrl, setImageUrl] = useState("/images/branding/3-20231024053531-97qf7.png");
 
+  const setHomeStore = useHomeStore(state => state.setHomeStore);
+  const brands = useHomeStore(state => state.brands);
+
   const scrollToSection = (ref: any) => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const fetchData = async () => {
-    const heroRef = doc(database, FIREBASE_BROSCINE, FIREBASE_HOME);
-    const heroSnap = await getDoc(heroRef);
+    try {
+      const heroRef = doc(database, FIREBASE_BROSCINE, FIREBASE_HOME);
+      const highlightRef = collection(database, FIREBASE_BROSCINE, FIREBASE_HOME, FIREBASE_HIGHLIGHTS);
+      const brandRef = collection(database, FIREBASE_BROSCINE, FIREBASE_HOME, FIREBASE_BRANDS);
 
-    if (heroSnap.exists()) {
-      const data = heroSnap.data()['heroSection'];
-      setTitle(data.title);
-      setSubtitle(data.subtitle);
-      setImageUrl(data.imageUrl);
-    } else {
-      alert("CANNOT FIND ANY DATA!")
-      console.log("NOTHING");
+      const [heroSnap, highlightSnap, brandSnap] = await Promise.all([
+        getDoc(heroRef),
+        getDocs(highlightRef),
+        getDocs(brandRef),
+      ]);
+
+      if (heroSnap.exists()) {
+        const data = heroSnap.data()['heroSection'];
+        setTitle(data.title);
+        setSubtitle(data.subtitle);
+        setImageUrl(data.imageUrl);
+      } else {
+        console.error("No data found in the hero document!");
+      }
+
+      const highlightData = highlightSnap.docs.map(doc => doc.data()) as Slide[];
+      const categoryData = brandSnap.docs.map(doc => doc.data()) as Brand[];
+      
+      setHomeStore('slides', highlightData);
+      setHomeStore('brands', categoryData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
   };
 
   useEffect(() => {
     fetchData();
-  }, [])
+  }, []);
 
   return (
     <main className="min-h-screen bg-foreground text-white">
@@ -68,7 +90,6 @@ export default function Home() {
             className={`${poppins.className} text-4xl md:text-6xl lg:text-7xl font-bold text-center max-w-5xl leading-tight`}
           >
             {title}
-            {/* <span className="text-red-500"> Vietnam</span> */}
           </motion.h1>
 
           <motion.p
@@ -79,16 +100,6 @@ export default function Home() {
           >
             {subtitle}
           </motion.p>
-
-          {/* <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="mt-8 flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full hover:bg-gray-200 transition-colors"
-          >
-            <Play size={20} />
-            Watch Showreel
-          </motion.button> */}
 
           <motion.button
             animate={{ y: [0, 10, 0] }}
@@ -140,7 +151,7 @@ export default function Home() {
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-px bg-gray-700">
-          {Array.from({ length: 16 }).map((_, i) => (
+          {brands.map((brand, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0 }}
@@ -150,7 +161,7 @@ export default function Home() {
               className="aspect-square bg-black flex items-center justify-center p-8 hover:bg-gray-900 transition-colors"
             >
               <Image
-                src={brandUrl}
+                src={brand.logoUrl}
                 alt="Brand logo"
                 width={150}
                 height={150}
