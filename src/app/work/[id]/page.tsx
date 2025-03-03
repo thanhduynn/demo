@@ -10,7 +10,7 @@ const defaultProject = {
 	title: 'REALME C75 EVERYTHING PROOF',
 	subtitle: 'Built to endure with IP69 dust and water resistance. Stay powered with 6000mAh massive battery. Smart at your fingertip with advanced AI features.',
 	type: 'TVC',
-	videoUrl: 'https://www.youtube.com/watch?v=6v2L2UGZJAM',
+	videoUrl: 'https://www.youtube.com/embed/CL13X-8o4h0',
 	brand: 'realme',
 	productionCompany: 'Vantage Pictures',
 	execusiveProducer: 'James Duong',
@@ -45,7 +45,7 @@ export default function ProjectDetail({ params }:any) {
             className="aspect-video bg-gray-800 rounded-lg overflow-hidden"
           >
             <iframe
-              src="https://player.vimeo.com/video/1039746267"
+              src={project.videoUrl}
               width="100%"
               height="100%"
               frameBorder="0"

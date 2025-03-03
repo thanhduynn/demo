@@ -292,7 +292,7 @@ export default function Work() {
 
                     /> */}
                   <AutoPlayer
-                    url={project.url}
+                    url={project.videoUrl}
                   ></AutoPlayer>
                   <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
 
