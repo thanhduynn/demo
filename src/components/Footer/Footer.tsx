@@ -2,7 +2,42 @@
 import React from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import Company from '~/types/company.type';
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
+import { database } from '../../../firebase';
+import { FIREBASE_ADDRESS, FIREBASE_BROSCINE, FIREBASE_METADATA } from '~/constants/firebase';
+import Address from '~/types/address.type';
+
 export default function Footer() {
+  const [metadata, setMetadata] = useState<Company>();
+  const [address, setAddress] = useState<Address>();
+
+  const fetchData = async () => {
+    const metadataRef = doc(database, FIREBASE_BROSCINE, FIREBASE_METADATA);
+    const metadataSnap = await getDoc(metadataRef);
+
+    if (metadataSnap.exists()) {
+      setMetadata(metadataSnap.data()['companyInformation'] as Company);
+
+      const addressRef = collection(database, FIREBASE_BROSCINE, FIREBASE_METADATA, FIREBASE_ADDRESS);
+      const addressSnap = await getDocs(addressRef);
+
+      const addressData = addressSnap.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+
+      setAddress(addressData[0] as Address);
+    } else {
+      alert("FAIL TO FETCH COMPANY DATA");
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [])
+  
   return (
     <footer className="bg-black text-white py-8 px-4 md:px-8">
       <div className="container mx-auto max-w-6xl">
@@ -15,7 +50,7 @@ export default function Footer() {
             {/* Company Name */}
             <div className="mb-8">
               <h2 className="text-2xl md:text-3xl font-bold mb-2">
-                CÔNG TY TNHH BROS CINE
+                {metadata?.name || "CONG TY X"}
               </h2>
             </div>
 
@@ -26,7 +61,7 @@ export default function Footer() {
                 <div>
                   <span className="font-semibold">CN Đà Nẵng:</span>{' '}
                   <span className="text-gray-300">
-                    16 Phan Thao - Hòa Xuân - Cẩm Lệ - Tp Đà Nẵng
+                    {address?.addressLine || "123 Street"} - {address?.city || "X City"} - {address?.country || "Y nation"}
                   </span>
                 </div>
               </div>
@@ -52,7 +87,7 @@ export default function Footer() {
                     href="tel:0787567869"
                     className="text-gray-300 hover:text-white transition-colors"
                   >
-                    0787 5678 69
+                    {metadata?.phone || "01234xxxxx"}
                   </a>
                 </div>
               </div>
@@ -62,10 +97,10 @@ export default function Footer() {
                 <div>
                   <span className="font-semibold">Email:</span>{' '}
                   <a
-                    href="mailto:quochuynh.cinematographer@gmail.com"
+                    href={"mailto:" + metadata?.email || "mailto:quochuynh.cinematographer@gmail.com"}
                     className="text-gray-300 hover:text-white transition-colors"
                   >
-                    quochuynh.cinematographer@gmail.com
+                    {metadata?.email || "quochuynh.cinematographer@gmail.com"}
                   </a>
                 </div>
               </div>
@@ -93,7 +128,7 @@ export default function Footer() {
           transition={{ delay: 0.5 }}
           className="mt-12 pt-6 border-t border-gray-800 text-center text-sm text-gray-400"
         >
-          © {new Date().getFullYear()} BROS CINE. All rights reserved.
+          © {new Date().getFullYear()} {metadata?.name}. All rights reserved.
           Power by <b>VieMind Tech Consulting</b>
         </motion.div>
       </div>

@@ -3,25 +3,26 @@
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useWorkStore } from '~/stores/work.store';
 
-// This would typically come from an API or database
-const getProjectById = (id:any) => {
-  // Mock data similar to the image
-  return {
-    title: 'REALME C75 EVERYTHING PROOF',
-    description: 'Built to endure with IP69 dust and water resistance. Stay powered with 6000mAh massive battery. Smart at your fingertip with advanced AI features.',
-    brand: 'realme',
-    productionCompany: 'Vantage Pictures',
-    executiveProducer: 'James Duong',
-    director: 'Paul Moore, Zacharia Lorenz',
-    producer: 'An Hoang, Ha Nguyen',
-    // ... add all other crew members from the image
-  };
+const defaultProject = {
+	id: '1',
+	title: 'REALME C75 EVERYTHING PROOF',
+	subtitle: 'Built to endure with IP69 dust and water resistance. Stay powered with 6000mAh massive battery. Smart at your fingertip with advanced AI features.',
+	type: 'TVC',
+	videoUrl: 'https://www.youtube.com/embed/CL13X-8o4h0',
+	brand: 'realme',
+	productionCompany: 'Vantage Pictures',
+	execusiveProducer: 'James Duong',
+  director: ['Paul Moore', 'Zacharia Lorenz'],
 };
 
 export default function ProjectDetail({ params }:any) {
   const router = useRouter();
-  const project = getProjectById(params.id);
+  const { getProjectById } = useWorkStore();
+  const projectFromStore = getProjectById(params.id);
+
+  const project = projectFromStore === undefined ? defaultProject : projectFromStore;
 
   return (
     <main className=" bg-black text-white mt-[20vh]">
@@ -44,7 +45,7 @@ export default function ProjectDetail({ params }:any) {
             className="aspect-video bg-gray-800 rounded-lg overflow-hidden"
           >
             <iframe
-              src="https://player.vimeo.com/video/1039746267"
+              src={project.videoUrl}
               width="100%"
               height="100%"
               frameBorder="0"
@@ -62,7 +63,7 @@ export default function ProjectDetail({ params }:any) {
           >
             <div>
               <h1 className="text-4xl font-bold mb-4">{project.title}</h1>
-              <p className="text-gray-300">{project.description}</p>
+              <p className="text-gray-300">{project.subtitle}</p>
             </div>
 
             <div className="space-y-4">
@@ -81,12 +82,12 @@ export default function ProjectDetail({ params }:any) {
                 
                 <div>
                   <p className="text-gray-400">Executive Producer</p>
-                  <p className="font-medium">{project.executiveProducer}</p>
+                  <p className="font-medium">{project.execusiveProducer}</p>
                 </div>
                 
                 <div>
                   <p className="text-gray-400">Director</p>
-                  <p className="font-medium">{project.director}</p>
+                  <p className="font-medium">{project.director.join(", ")}</p>
                 </div>
                 
                 {/* Add more crew information */}
