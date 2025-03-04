@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Header from '~/components/Header';
 import Footer from '~/components/Footer';
+import Script from 'next/script';
 
 // const geistSans = Geist({
 //   variable: '--font-geist-sans',
@@ -31,6 +32,16 @@ export default function RootLayout({
       <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"></link>
       <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"></link>
       <link rel="manifest" href="/site.webmanifest"></link>
+      <meta name="google-site-verification" content="ouY_gOiaiAZfoGRg6m1Kqvm0qiC5Bh5e6HRwEKVXNUY" />
+      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-KKF1XJM0FC" />
+      <Script id="google-analytics">
+        {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-KKF1XJM0FC');
+          `}
+      </Script>
       <body
         className={`antialiased`}
       >
