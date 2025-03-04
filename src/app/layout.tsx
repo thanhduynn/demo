@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   title: 'BroCine - Production House & Rental House',
   description:
     'BROS CINE is an video production company with offices in the Ho Chi Minh and equipment rental in Da Nang . With lots of ambition about TVC, documentary filming, music video. Having a love with every simple thing in this world. Always be professional & energetic at work.',
+  other: {
+    "google-site-verification": "ouY_gOiaiAZfoGRg6m1Kqvm0qiC5Bh5e6HRwEKVXNUY"
+  }
 };
 
 export default function RootLayout({
@@ -32,7 +35,13 @@ export default function RootLayout({
       <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"></link>
       <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"></link>
       <link rel="manifest" href="/site.webmanifest"></link>
-      <meta name="google-site-verification" content="ouY_gOiaiAZfoGRg6m1Kqvm0qiC5Bh5e6HRwEKVXNUY" />
+      <body
+        className={`antialiased`}
+      >
+        <Header />
+        {children}
+        <Footer />
+      </body>
       <Script async src="https://www.googletagmanager.com/gtag/js?id=G-KKF1XJM0FC" />
       <Script id="google-analytics">
         {`
@@ -42,13 +51,6 @@ export default function RootLayout({
             gtag('config', 'G-KKF1XJM0FC');
           `}
       </Script>
-      <body
-        className={`antialiased`}
-      >
-        <Header />
-        {children}
-        <Footer />
-      </body>
     </html>
   );
 }
