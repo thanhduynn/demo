@@ -37,7 +37,7 @@ export default function Footer() {
   useEffect(() => {
     fetchData();
   }, [])
-  
+
   return (
     <footer className="bg-black text-white py-8 px-4 md:px-8">
       <div className="container mx-auto max-w-6xl">
@@ -129,7 +129,8 @@ export default function Footer() {
           className="mt-12 pt-6 border-t border-gray-800 text-center text-sm text-gray-400"
         >
           © {new Date().getFullYear()} {metadata?.name}. All rights reserved.
-          Power by <b>VieMind Tech Consulting</b>
+          Power by <a href="https://viemind.ai" className="text-gray-300 hover:text-white transition-colors" target="_blank" rel="noreferrer"
+          >VieMind Tech Consulting</a>
         </motion.div>
       </div>
     </footer>

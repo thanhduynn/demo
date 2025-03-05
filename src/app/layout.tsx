@@ -20,9 +20,8 @@ export const metadata: Metadata = {
   description:
     'BROS CINE is an video production company with offices in the Ho Chi Minh and equipment rental in Da Nang . With lots of ambition about TVC, documentary filming, music video. Having a love with every simple thing in this world. Always be professional & energetic at work.',
   verification: {
-    google: "ouY_gOiaiAZfoGRg6m1Kqvm0qiC5Bh5e6HRwEKVXNUY",
+    google: "4BK2FGSbE1USjcQnL3ZTtfId03ts1N-vFyVNfDrL5L8",
   },
-
 };
 
 export default function RootLayout({
